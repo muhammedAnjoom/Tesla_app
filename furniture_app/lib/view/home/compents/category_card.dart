@@ -56,7 +56,7 @@ class CardItem extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 1.15,
                     child: FadeInImage.assetNetwork(
-                      placeholder: "assets/icons/dual-ball.gif",
+                      placeholder: "assets/icons/loading.gif",
                       image: category.image!,
                       imageErrorBuilder: (context, error, stackTrace) {
                         return Text("error image");

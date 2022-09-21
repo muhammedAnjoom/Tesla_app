@@ -32,7 +32,7 @@ Product product = Product(
   title: "wood Frame",
   category: "Chair",
   subTitle: "Tieton Armchair",
-  image: "assets/image/pexels-pavel-danilyuk-7881483.jpg",
+  image: "https://i.imgur.com/sI4GvE6.png",
   description: description,
 );
 String description ="A chair is a type of seat, typically designed for one person and consisting of one or more legs, a flat seat and a back-rest. ";
