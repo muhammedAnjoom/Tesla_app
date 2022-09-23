@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:furniture_app/view/home/compents/product_card.dart';
+import 'package:furniture_app/view/detial/detial_page.dart';
+import 'package:furniture_app/view/home/components/product_card.dart';
 
 import '../../../model/product..dart';
 import '../../../size_config.dart';
@@ -23,13 +24,21 @@ class RecommandsProduct extends StatelessWidget {
         shrinkWrap: true,
         itemCount: product.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: SizeConfig.orientation == Orientation.portrait? 2: 4,
+            crossAxisCount:
+                SizeConfig.orientation == Orientation.portrait ? 2 : 4,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
             childAspectRatio: 0.700),
         itemBuilder: (context, index) => ProductCard(
           product: product[index],
-          press: () {},
+          press: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (ctx) => DetailsPage(
+                          product: product[index],
+                        )));
+          },
         ),
       ),
     );

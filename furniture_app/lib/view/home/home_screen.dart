@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:furniture_app/constants.dart';
 import 'package:furniture_app/size_config.dart';
-import 'package:furniture_app/view/home/compents/body.dart';
+import 'package:furniture_app/view/home/components/body.dart';
 
 
 class HomeScreen extends StatelessWidget {

@@ -6,9 +6,9 @@ import 'package:furniture_app/services/fatchProducts.dart';
 import 'package:furniture_app/services/fetchCategory.dart';
 import 'package:furniture_app/size_config.dart';
 
-import 'package:furniture_app/view/home/compents/recommands_product.dart';
+import 'package:furniture_app/view/home/components/recommands_product.dart';
 
-import '../../compents/title_text.dart';
+import '../../components/title_text.dart';
 import 'category_card.dart';
 
 class Body extends StatelessWidget {

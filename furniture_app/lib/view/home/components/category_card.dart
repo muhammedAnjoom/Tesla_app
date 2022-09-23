@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../model/categories.dart';
 import '../../../size_config.dart';
-import '../../compents/title_text.dart';
+import '../../components/title_text.dart';
 
 class CardItem extends StatelessWidget {
   const CardItem({Key? key, required this.category}) : super(key: key);
