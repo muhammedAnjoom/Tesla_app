@@ -5,6 +5,7 @@ import 'package:furniture_app/model/categories.dart';
 import 'package:furniture_app/services/fatchProducts.dart';
 import 'package:furniture_app/services/fetchCategory.dart';
 import 'package:furniture_app/size_config.dart';
+import 'package:furniture_app/view/home/components/brows_categoris.dart';
 
 import 'package:furniture_app/view/home/components/recommands_product.dart';
 
@@ -59,25 +60,3 @@ class Body extends StatelessWidget {
   }
 }
 
-class CategoryWidget extends StatelessWidget {
-  const CategoryWidget({
-    Key? key,
-    required this.category,
-  }) : super(key: key);
-
-  final List<Category> category;
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          children: List.generate(
-        category.length,
-        (index) => CardItem(
-          category: category[index],
-        ),
-      )),
-    );
-  }
-}

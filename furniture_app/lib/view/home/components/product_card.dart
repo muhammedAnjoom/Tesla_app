@@ -32,13 +32,16 @@ class ProductCard extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: FadeInImage.assetNetwork(
-                  placeholder: "assets/icons/loading.gif",
-                  image: product.image!,
-                  fit: BoxFit.cover,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Text("error image");
-                  },
+                child: Hero(
+                  tag: product.id!,
+                  child: FadeInImage.assetNetwork(
+                    placeholder: "assets/icons/loading.gif",
+                    image: product.image!,
+                    fit: BoxFit.cover,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Text("error image");
+                    },
+                  ),
                 ),
               ),
               Padding(
