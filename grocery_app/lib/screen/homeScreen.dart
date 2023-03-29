@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:grocery_app/constanis.dart';
 
 import '../controller/home_controller.dart';
+import 'door_lock.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -31,30 +33,32 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Positioned(
                       right: constrains.maxWidth * 0.04,
-                      child: GestureDetector(
-                        onTap: _controller.updateRightDoorLock,
-                        child: _controller.isRightDoorLock
-                            ? SvgPicture.asset(
-                                "assets/icons/door_lock.svg",
-                              )
-                            : SvgPicture.asset(
-                                "assets/icons/door_unlock.svg",
-                              ),
+                      child: DoorLock(
+                        press: _controller.updateRightDoorLock,
+                        isLock: _controller.isRightDoorLock,
                       ),
                     ),
-                    // Positioned(
-                    //   left: constrains.maxWidth * 0.04,
-                    //   child: GestureDetector(
-                    //     onTap: _controller.updateLeftDoorLock,
-                    //     child: _controller.isLeftDoorLock
-                    //         ? SvgPicture.asset(
-                    //             "assets/icons/door_lock.svg",
-                    //           )
-                    //         : SvgPicture.asset(
-                    //             "assets/icons/door_unlock.svg",
-                    //           ),
-                    //   ),
-                    // )
+                    Positioned(
+                      left: constrains.maxWidth * 0.04,
+                      child: DoorLock(
+                        press: _controller.updateLeftDoorLock,
+                        isLock: _controller.isLeftDoorLock,
+                      ),
+                    ),
+                     Positioned(
+                      top: constrains.maxWidth * 0.04,
+                      child: DoorLock(
+                        press: _controller.updateTopDoorLock,
+                        isLock: _controller.isTopDoorLock,
+                      ),
+                    ),
+                     Positioned(
+                      bottom: constrains.maxWidth * 0.04,
+                      child: DoorLock(
+                        press: _controller.updateBottomDoorLock,
+                        isLock: _controller.isBottomDoorLock,
+                      ),
+                    )
                   ],
                 );
               }),
