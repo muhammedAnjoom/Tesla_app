@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery_app/constanis.dart';
 
+import '../bottomNavigationBar.dart';
 import '../controller/home_controller.dart';
 import 'door_lock.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({
+    Key? key,
+
+  }) : super(key: key);
 
   final HomeController _controller = HomeController();
 
@@ -17,6 +21,10 @@ class HomeScreen extends StatelessWidget {
         animation: _controller,
         builder: (context, _) {
           return Scaffold(
+            bottomNavigationBar: TeslaBottomNavigatorBar(
+              onTap: (index){},
+              selectedTap: 0,
+            ),
             body: SafeArea(
               child: LayoutBuilder(builder: (context, constrains) {
                 return Stack(
@@ -45,15 +53,15 @@ class HomeScreen extends StatelessWidget {
                         isLock: _controller.isLeftDoorLock,
                       ),
                     ),
-                     Positioned(
-                      top: constrains.maxWidth * 0.04,
+                    Positioned(
+                      top: constrains.maxHeight * 0.13,
                       child: DoorLock(
                         press: _controller.updateTopDoorLock,
                         isLock: _controller.isTopDoorLock,
                       ),
                     ),
-                     Positioned(
-                      bottom: constrains.maxWidth * 0.04,
+                    Positioned(
+                      bottom: constrains.maxHeight * 0.17,
                       child: DoorLock(
                         press: _controller.updateBottomDoorLock,
                         isLock: _controller.isBottomDoorLock,
