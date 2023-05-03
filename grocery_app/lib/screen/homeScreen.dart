@@ -9,7 +9,6 @@ import 'door_lock.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     Key? key,
-
   }) : super(key: key);
 
   final HomeController _controller = HomeController();
@@ -22,8 +21,10 @@ class HomeScreen extends StatelessWidget {
         builder: (context, _) {
           return Scaffold(
             bottomNavigationBar: TeslaBottomNavigatorBar(
-              onTap: (index){},
-              selectedTap: 0,
+              onTap: (index) {
+                _controller.onBottomNavigationTabChanges(index);
+              },
+              selectedTap: _controller.selectedBottomTab,
             ),
             body: SafeArea(
               child: LayoutBuilder(builder: (context, constrains) {
@@ -39,32 +40,60 @@ class HomeScreen extends StatelessWidget {
                         width: double.infinity,
                       ),
                     ),
-                    Positioned(
-                      right: constrains.maxWidth * 0.04,
-                      child: DoorLock(
-                        press: _controller.updateRightDoorLock,
-                        isLock: _controller.isRightDoorLock,
+                    AnimatedPositioned(
+                      duration: defaultDuration,
+                      right: _controller.selectedBottomTab == 0
+                          ? constrains.maxWidth * 0.04
+                          : constrains.maxWidth / 2,
+                      child: AnimatedOpacity(
+                        duration: defaultDuration,
+                        opacity: _controller.selectedBottomTab == 0 ? 1 : 0,
+                        child: DoorLock(
+                          press: _controller.updateRightDoorLock,
+                          isLock: _controller.isRightDoorLock,
+                        ),
                       ),
                     ),
-                    Positioned(
-                      left: constrains.maxWidth * 0.04,
-                      child: DoorLock(
-                        press: _controller.updateLeftDoorLock,
-                        isLock: _controller.isLeftDoorLock,
+                    AnimatedPositioned(
+                      duration: defaultDuration,
+                      left: _controller.selectedBottomTab == 0
+                          ? constrains.maxWidth * 0.04
+                          : constrains.maxWidth / 2.5,
+                      child: AnimatedOpacity(
+                        duration: defaultDuration,
+                        opacity: _controller.selectedBottomTab == 0 ? 1 : 0,
+                        child: DoorLock(
+                          press: _controller.updateLeftDoorLock,
+                          isLock: _controller.isLeftDoorLock,
+                        ),
                       ),
                     ),
-                    Positioned(
-                      top: constrains.maxHeight * 0.13,
-                      child: DoorLock(
-                        press: _controller.updateTopDoorLock,
-                        isLock: _controller.isTopDoorLock,
+                    AnimatedPositioned(
+                      duration: defaultDuration,
+                      top: _controller.selectedBottomTab == 0
+                          ? constrains.maxHeight * 0.13
+                          : constrains.maxHeight / 2,
+                      child: AnimatedOpacity(
+                        duration: defaultDuration,
+                        opacity: _controller.selectedBottomTab == 0 ? 1 : 0,
+                        child: DoorLock(
+                          press: _controller.updateTopDoorLock,
+                          isLock: _controller.isTopDoorLock,
+                        ),
                       ),
                     ),
-                    Positioned(
-                      bottom: constrains.maxHeight * 0.17,
-                      child: DoorLock(
-                        press: _controller.updateBottomDoorLock,
-                        isLock: _controller.isBottomDoorLock,
+                    AnimatedPositioned(
+                      duration: defaultDuration,
+                      bottom: _controller.selectedBottomTab == 0
+                          ? constrains.maxHeight * 0.17
+                          : constrains.maxHeight / 2.3,
+                      child: AnimatedOpacity(
+                        duration: defaultDuration,
+                        opacity: _controller.selectedBottomTab == 0 ? 1 : 0,
+                        child: DoorLock(
+                          press: _controller.updateBottomDoorLock,
+                          isLock: _controller.isBottomDoorLock,
+                        ),
                       ),
                     )
                   ],
