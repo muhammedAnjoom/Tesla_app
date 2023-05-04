@@ -6,22 +6,58 @@ import '../bottomNavigationBar.dart';
 import '../controller/home_controller.dart';
 import 'door_lock.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   HomeScreen({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final HomeController _controller = HomeController();
+
+  late AnimationController _batteryAnimationController;
+  late Animation<double> _animationBattery;
+  void setupBatteryAnimation() {
+    _batteryAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _animationBattery = CurvedAnimation(
+      parent: _batteryAnimationController,
+      curve: const Interval(0.0, 0.5),
+    );
+  }
+
+  @override
+  void initState() {
+    setupBatteryAnimation();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _batteryAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         // this animation need listenable
-        animation: _controller,
+        animation: Listenable.merge([_controller, _batteryAnimationController]),
         builder: (context, _) {
           return Scaffold(
             bottomNavigationBar: TeslaBottomNavigatorBar(
               onTap: (index) {
+                if (index == 1)
+                  _batteryAnimationController.forward();
+                else if (_controller.selectedBottomTab == 1 && index != 1)
+                  _batteryAnimationController.reverse(from: 0.7);
                 _controller.onBottomNavigationTabChanges(index);
               },
               selectedTap: _controller.selectedBottomTab,
@@ -94,6 +130,13 @@ class HomeScreen extends StatelessWidget {
                           press: _controller.updateBottomDoorLock,
                           isLock: _controller.isBottomDoorLock,
                         ),
+                      ),
+                    ),
+                    Opacity(
+                      opacity: _animationBattery.value,
+                      child: SvgPicture.asset(
+                        "assets/icons/Battery.svg",
+                        width: constrains.maxWidth * 0.45,
                       ),
                     )
                   ],
