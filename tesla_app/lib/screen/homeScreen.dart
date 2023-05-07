@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
+  late Animation<double> _animationBatteryStatus;
+
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
       vsync: this,
@@ -31,6 +33,10 @@ class _HomeScreenState extends State<HomeScreen>
     _animationBattery = CurvedAnimation(
       parent: _batteryAnimationController,
       curve: const Interval(0.0, 0.5),
+    );
+    _animationBatteryStatus = CurvedAnimation(
+      parent: _batteryAnimationController,
+      curve: Interval(0.6, 1),
     );
   }
 
@@ -141,7 +147,17 @@ class _HomeScreenState extends State<HomeScreen>
                         width: constrains.maxWidth * 0.45,
                       ),
                     ),
-                    BatteryStatus(constraints: constrains,)
+                    Positioned(
+                      top: 50 *(1-_animationBatteryStatus.value),
+                      height: constrains.maxHeight,
+                      width: constrains.maxWidth,
+                      child: Opacity(
+                        opacity: _animationBatteryStatus.value,
+                        child: BatteryStatus(
+                          constraints: constrains,
+                        ),
+                      ),
+                    )
                   ],
                 );
               }),
@@ -150,4 +166,3 @@ class _HomeScreenState extends State<HomeScreen>
         });
   }
 }
-
