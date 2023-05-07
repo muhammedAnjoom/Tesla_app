@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery_app/constanis.dart';
 
-
 import '../bottomNavigationBar.dart';
 import '../controller/home_controller.dart';
 import 'door_lock.dart';
@@ -133,12 +132,53 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                     ),
+                    // Battery
                     Opacity(
                       opacity: _animationBattery.value,
                       child: SvgPicture.asset(
                         "assets/icons/Battery.svg",
                         width: constrains.maxWidth * 0.45,
                       ),
+                    ),
+                    Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "220 mi",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(color: Colors.white),
+                        ),
+                        const Text(
+                          "62%",
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "Charging".toUpperCase(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        const Text(
+                          "18 min remaining",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: constrains.maxHeight * 0.14,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [Text("22 mi/hr"), Text("232 v")],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: defaultPadding,
+                        )
+                      ],
                     )
                   ],
                 );
