@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
     _animationCarShift = CurvedAnimation(
       parent: _tempAnimationController,
-      curve: const Interval(0, 0.2),
+      curve: const Interval(0.2, 0.4),
     );
   }
 
@@ -71,7 +71,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         // this animation need listenable
-        animation: Listenable.merge([_controller, _batteryAnimationController]),
+        animation: Listenable.merge([
+          _controller,
+          _batteryAnimationController,
+          _tempAnimationController
+        ]),
         builder: (context, _) {
           return Scaffold(
             bottomNavigationBar: TeslaBottomNavigatorBar(
@@ -80,6 +84,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   _batteryAnimationController.forward();
                 else if (_controller.selectedBottomTab == 1 && index != 1)
                   _batteryAnimationController.reverse(from: 0.7);
+
+                if (index == 2)
+                  _tempAnimationController.forward();
+                else if (_controller.selectedBottomTab == 2 && index != 2)
+                  _tempAnimationController.reverse(from: 0.4);
                 _controller.onBottomNavigationTabChanges(index);
               },
               selectedTap: _controller.selectedBottomTab,
@@ -94,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       width: constrains.maxWidth,
                     ),
                     Positioned(
-                      left: constrains.maxWidth / 2,
+                      left: constrains.maxWidth / 2 * _animationCarShift.value,
                       height: constrains.maxHeight,
                       width: constrains.maxWidth,
                       child: Padding(
@@ -181,12 +190,52 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           constraints: constrains,
                         ),
                       ),
-                    )
+                    ),
+                    // tmep
+                    TempBtn(
+                        press: () {},
+                        svgSrc: "assets/icons/coolShape.svg",
+                        title: "Cool",),
                   ],
                 );
               }),
             ),
           );
         });
+  }
+}
+
+class TempBtn extends StatelessWidget {
+  const TempBtn(
+      {super.key,
+      this.isActive = true,
+      required this.press,
+      required this.svgSrc,
+      required this.title});
+
+  final String svgSrc, title;
+  final bool isActive;
+  final press;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: isActive ? 76 :50,
+          height:isActive? 76 : 50,
+          child: SvgPicture.asset(
+            svgSrc,
+            color: isActive ?primaryColor : Colors.white38,
+          ),
+        ),
+        const SizedBox(
+          height: defaultPadding / 2,
+        ),
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(fontSize: 16, color: Colors.white30),
+        )
+      ],
+    );
   }
 }
