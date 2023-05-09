@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
   late Animation<double> _animationBatteryStatus;
-  late AnimationController _tempAnimationController;
+  
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
