@@ -17,14 +17,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final HomeController _controller = HomeController();
 
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
   late Animation<double> _animationBatteryStatus;
+
   late AnimationController _tempAnimationController;
+  late Animation<double> _animationCarShift;
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
@@ -41,15 +42,28 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  void setupTempAnimation() {
+    _tempAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
+    _animationCarShift = CurvedAnimation(
+      parent: _tempAnimationController,
+      curve: const Interval(0, 0.2),
+    );
+  }
+
   @override
   void initState() {
     setupBatteryAnimation();
+    setupTempAnimation();
     super.initState();
   }
 
   @override
   void dispose() {
     _batteryAnimationController.dispose();
+    _tempAnimationController.dispose();
     super.dispose();
   }
 
@@ -80,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen>
                       width: constrains.maxWidth,
                     ),
                     Positioned(
-                      left: constrains.maxWidth /2,
+                      left: constrains.maxWidth / 2,
                       height: constrains.maxHeight,
                       width: constrains.maxWidth,
                       child: Padding(
