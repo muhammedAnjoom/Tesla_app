@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
   late AnimationController _batteryAnimationController;
   late Animation<double> _animationBattery;
   late Animation<double> _animationBatteryStatus;
+  late AnimationController _tempAnimationController;
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
@@ -74,13 +75,22 @@ class _HomeScreenState extends State<HomeScreen>
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: constrains.maxHeight * 0.1,
-                      ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Car.svg",
-                        width: double.infinity,
+                    SizedBox(
+                      height: constrains.maxHeight,
+                      width: constrains.maxWidth,
+                    ),
+                    Positioned(
+                      left: constrains.maxWidth /2,
+                      height: constrains.maxHeight,
+                      width: constrains.maxWidth,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: constrains.maxHeight * 0.1,
+                        ),
+                        child: SvgPicture.asset(
+                          "assets/icons/Car.svg",
+                          width: double.infinity,
+                        ),
                       ),
                     ),
                     AnimatedPositioned(
@@ -148,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                     Positioned(
-                      top: 50 *(1-_animationBatteryStatus.value),
+                      top: 50 * (1 - _animationBatteryStatus.value),
                       height: constrains.maxHeight,
                       width: constrains.maxWidth,
                       child: Opacity(
