@@ -193,13 +193,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     // tmep
-                    TempBtn(
-                      isActive: _controller.isCoolSelected,
-                      svgSrc: "assets/icons/coolShape.svg",
-                      title: "Cool",
-                      press: _controller.updateCoolSelectTap,
-                      // isActive: true,
-                    ),
+                    TempDetailis(controller: _controller),
                   ],
                 );
               }),
@@ -209,4 +203,65 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 }
 
+class TempDetailis extends StatelessWidget {
+  const TempDetailis({
+    super.key,
+    required HomeController controller,
+  }) : _controller = controller;
 
+  final HomeController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const SizedBox(
+              width: defaultPadding,
+            ),
+            TempBtn(
+              isActive: _controller.isCoolSelected,
+              svgSrc: "assets/icons/coolShape.svg",
+              title: "Cool",
+              press: _controller.updateCoolSelectTap,
+              activeColor: primaryColor,
+              // isActive: true,
+            ),
+            const SizedBox(
+              width: defaultPadding,
+            ),
+            TempBtn(
+              isActive: !_controller.isCoolSelected,
+              svgSrc: "assets/icons/heatShape.svg",
+              title: "Hot",
+              press: _controller.updateCoolSelectTap,
+              activeColor: redColor,
+              // isActive: true,
+            ),
+          ],
+        ),
+        IconButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_drop_up,
+            size: 48,
+          ),
+          
+        ),
+        Text("20"+"\u2103",style: TextStyle(fontSize: 86),),
+         IconButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_drop_down,
+            size: 48,
+          ),
+         ),
+         Text("CURRENT TEMPERATURE"),
+         const SizedBox(height: defaultPadding,),
+      ],
+    );
+  }
+}

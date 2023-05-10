@@ -4,16 +4,20 @@ import 'package:flutter_svg/svg.dart';
 import '../../constanis.dart';
 
 class TempBtn extends StatelessWidget {
-  const TempBtn(
-      {super.key,
-      this.isActive = false,
-      required this.press,
-      required this.svgSrc,
-      required this.title});
+  const TempBtn({
+    super.key,
+    this.isActive = false,
+    required this.press,
+    required this.svgSrc,
+    required this.title,
+    required this.activeColor,
+  });
 
   final String svgSrc, title;
   final bool isActive;
   final press;
+  final Color activeColor;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +31,7 @@ class TempBtn extends StatelessWidget {
             height: isActive ? 76 : 50,
             child: SvgPicture.asset(
               svgSrc,
-              color: isActive ? primaryColor : Colors.white38,
+              color: isActive ? activeColor : Colors.white38,
             ),
           ),
           const SizedBox(
