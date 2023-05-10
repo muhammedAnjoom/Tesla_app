@@ -4,6 +4,7 @@ import 'package:grocery_app/constanis.dart';
 
 import '../bottomNavigationBar.dart';
 import '../controller/home_controller.dart';
+import 'components/TempButton.dart';
 import 'components/batteryStatus.dart';
 import 'components/door_lock.dart';
 
@@ -193,9 +194,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     // tmep
                     TempBtn(
-                      press: () {},
+                      isActive: _controller.isCoolSelected,
                       svgSrc: "assets/icons/coolShape.svg",
                       title: "Cool",
+                      press: _controller.updateCoolSelectTap,
                       // isActive: true,
                     ),
                   ],
@@ -207,44 +209,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 }
 
-class TempBtn extends StatelessWidget {
-  const TempBtn(
-      {super.key,
-      this.isActive = false,
-      required this.press,
-      required this.svgSrc,
-      required this.title});
 
-  final String svgSrc, title;
-  final bool isActive;
-  final press;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: Column(
-        children: [
-          Container(
-            width: isActive ? 76 : 50,
-            height: isActive ? 76 : 50,
-            child: SvgPicture.asset(
-              svgSrc,
-              color: isActive ? primaryColor : Colors.white38,
-            ),
-          ),
-          const SizedBox(
-            height: defaultPadding / 2,
-          ),
-          Text(
-            title.toUpperCase(),
-            style:  TextStyle(
-              fontSize: 16,
-              color: Colors.white30,
-              fontWeight: isActive ? FontWeight.bold:FontWeight.normal
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}

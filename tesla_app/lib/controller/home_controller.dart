@@ -34,4 +34,9 @@ class HomeController extends ChangeNotifier {
     isBottomDoorLock = !isBottomDoorLock;
     notifyListeners();
   }
+  bool isCoolSelected = true;
+   void updateCoolSelectTap() {
+     isCoolSelected = !isCoolSelected;
+     notifyListeners();
+   }
 }
