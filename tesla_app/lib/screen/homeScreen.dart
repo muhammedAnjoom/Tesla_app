@@ -193,9 +193,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     // tmep
                     TempBtn(
-                        press: () {},
-                        svgSrc: "assets/icons/coolShape.svg",
-                        title: "Cool",),
+                      press: () {},
+                      svgSrc: "assets/icons/coolShape.svg",
+                      title: "Cool",
+                      // isActive: true,
+                    ),
                   ],
                 );
               }),
@@ -208,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 class TempBtn extends StatelessWidget {
   const TempBtn(
       {super.key,
-      this.isActive = true,
+      this.isActive = false,
       required this.press,
       required this.svgSrc,
       required this.title});
@@ -218,24 +220,31 @@ class TempBtn extends StatelessWidget {
   final press;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: isActive ? 76 :50,
-          height:isActive? 76 : 50,
-          child: SvgPicture.asset(
-            svgSrc,
-            color: isActive ?primaryColor : Colors.white38,
+    return GestureDetector(
+      onTap: press,
+      child: Column(
+        children: [
+          Container(
+            width: isActive ? 76 : 50,
+            height: isActive ? 76 : 50,
+            child: SvgPicture.asset(
+              svgSrc,
+              color: isActive ? primaryColor : Colors.white38,
+            ),
           ),
-        ),
-        const SizedBox(
-          height: defaultPadding / 2,
-        ),
-        Text(
-          title.toUpperCase(),
-          style: const TextStyle(fontSize: 16, color: Colors.white30),
-        )
-      ],
+          const SizedBox(
+            height: defaultPadding / 2,
+          ),
+          Text(
+            title.toUpperCase(),
+            style:  TextStyle(
+              fontSize: 16,
+              color: Colors.white30,
+              fontWeight: isActive ? FontWeight.bold:FontWeight.normal
+            ),
+          )
+        ],
+      ),
     );
   }
 }
