@@ -7,6 +7,7 @@ import '../controller/home_controller.dart';
 import 'components/TempButton.dart';
 import 'components/batteryStatus.dart';
 import 'components/door_lock.dart';
+import 'components/tempDetails.dart';
 
 class HomeScreen extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -81,15 +82,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           return Scaffold(
             bottomNavigationBar: TeslaBottomNavigatorBar(
               onTap: (index) {
-                if (index == 1)
+                if (index == 1) {
                   _batteryAnimationController.forward();
-                else if (_controller.selectedBottomTab == 1 && index != 1)
+                } else if (_controller.selectedBottomTab == 1 && index != 1) {
                   _batteryAnimationController.reverse(from: 0.7);
+                }
 
-                if (index == 2)
+                if (index == 2) {
                   _tempAnimationController.forward();
-                else if (_controller.selectedBottomTab == 2 && index != 2)
+                } else if (_controller.selectedBottomTab == 2 && index != 2) {
                   _tempAnimationController.reverse(from: 0.4);
+                }
                 _controller.onBottomNavigationTabChanges(index);
               },
               selectedTap: _controller.selectedBottomTab,
@@ -200,118 +203,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           );
         });
-  }
-}
-
-class TempDetailis extends StatelessWidget {
-  const TempDetailis({
-    super.key,
-    required HomeController controller,
-  }) : _controller = controller;
-
-  final HomeController _controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(defaultPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 120,
-            child: Row(
-              children: [
-                const SizedBox(
-                  width: defaultPadding,
-                ),
-                TempBtn(
-                  isActive: _controller.isCoolSelected,
-                  svgSrc: "assets/icons/coolShape.svg",
-                  title: "Cool",
-                  press: _controller.updateCoolSelectTap,
-                  activeColor: primaryColor,
-                  // isActive: true,
-                ),
-                const SizedBox(
-                  width: defaultPadding,
-                ),
-                TempBtn(
-                  isActive: !_controller.isCoolSelected,
-                  svgSrc: "assets/icons/heatShape.svg",
-                  title: "Hot",
-                  press: _controller.updateCoolSelectTap,
-                  activeColor: redColor,
-                  // isActive: true,
-                ),
-              ],
-            ),
-          ),
-          Spacer(),
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_drop_up,
-                  size: 48,
-                ),
-              ),
-              const Text(
-                "20" + "\u2103",
-                style: TextStyle(fontSize: 86),
-              ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  size: 48,
-                ),
-              ),
-            ],
-          ),
-          Spacer(),
-          Text("CURRENT TEMPERATURE"),
-          const SizedBox(
-            height: defaultPadding,
-          ),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Inside".toUpperCase()),
-                  Text(
-                    "20" + "\u2103",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  )
-                ],
-              ),
-              const SizedBox(
-                width: defaultPadding,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "outside".toUpperCase(),
-                    style: const TextStyle(color: Colors.white54),
-                  ),
-                  Text(
-                    "35" + "\u2103",
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: Colors.white54,
-                        ),
-                  )
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
   }
 }
