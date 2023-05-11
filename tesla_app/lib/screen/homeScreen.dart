@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   late AnimationController _tempAnimationController;
   late Animation<double> _animationCarShift;
+  late Animation<double> _animationTempShowInfo;
 
   void setupBatteryAnimation() {
     _batteryAnimationController = AnimationController(
@@ -52,6 +53,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _animationCarShift = CurvedAnimation(
       parent: _tempAnimationController,
       curve: const Interval(0.2, 0.4),
+    );
+    _animationTempShowInfo = CurvedAnimation(
+      parent: _tempAnimationController,
+      curve: const Interval(0.45, 0.65),
     );
   }
 
@@ -196,7 +201,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                     // tmep
-                    TempDetailis(controller: _controller),
+                    Positioned(
+                      top: 60 * (1 - _animationTempShowInfo.value),
+                      height: constrains.maxHeight,
+                      width: constrains.maxWidth,
+                      child: Opacity(
+                        opacity: _animationTempShowInfo.value,
+                        child: TempDetailis(controller: _controller),
+                      ),
+                    ),
                   ],
                 );
               }),
