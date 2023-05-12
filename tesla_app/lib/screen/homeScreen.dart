@@ -221,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         duration: defaultDuration,
                         child: _controller.isCoolSelected ? Image.asset(
                           "assets/images/Cool_glow_2.png",
+                          opacity: AnimationController(vsync: this,value: 0.5),
                           width: 180,
                         ):Image.asset(
                           "assets/images/Hot_glow_4.png",
