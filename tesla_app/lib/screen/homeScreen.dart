@@ -8,6 +8,7 @@ import 'components/TempButton.dart';
 import 'components/batteryStatus.dart';
 import 'components/door_lock.dart';
 import 'components/tempDetails.dart';
+import 'components/tyres.dart';
 
 class HomeScreen extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -243,30 +244,5 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           );
         });
-  }
-
-  List<Widget> tyres(BoxConstraints constrains) {
-    return [
-      Positioned(
-        left: constrains.maxWidth * 0.2,
-        top: constrains.maxHeight * 0.22,
-        child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
-      ),
-      Positioned(
-        right: constrains.maxWidth * 0.2,
-        top: constrains.maxHeight * 0.22,
-        child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
-      ),
-      Positioned(
-        left: constrains.maxWidth * 0.2,
-        top: constrains.maxHeight * 0.63,
-        child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
-      ),
-      Positioned(
-        right: constrains.maxWidth * 0.2,
-        top: constrains.maxHeight * 0.63,
-        child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
-      )
-    ];
   }
 }
