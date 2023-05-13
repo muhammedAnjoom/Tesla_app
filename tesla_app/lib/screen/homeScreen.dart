@@ -38,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
     _animationBattery = CurvedAnimation(
       parent: _batteryAnimationController,
-      curve: const Interval(0.0, 0.5),
+      curve: const Interval(0.0, 0.4),
     );
     _animationBatteryStatus = CurvedAnimation(
       parent: _batteryAnimationController,
-      curve: Interval(0.6, 1),
+      curve: const Interval(0.5, 1),
     );
   }
 
@@ -207,27 +207,54 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     // tmep
                     Positioned(
-                      top: 60 * (1 - _animationTempShowInfo.value),
                       height: constrains.maxHeight,
                       width: constrains.maxWidth,
+                      top: 60 * (1 - _animationTempShowInfo.value),
                       child: Opacity(
                         opacity: _animationTempShowInfo.value,
                         child: TempDetailis(controller: _controller),
                       ),
                     ),
                     Positioned(
-                      right: -100*(1-_animationCoolColor.value),
+                      right: -180 * (1 - _animationCoolColor.value),
                       child: AnimatedSwitcher(
                         duration: defaultDuration,
-                        child: _controller.isCoolSelected ? Image.asset(
-                          "assets/images/Cool_glow_2.png",
-                          opacity: AnimationController(vsync: this,value: 0.5),
-                          width: 180,
-                        ):Image.asset(
-                          "assets/images/Hot_glow_4.png",
-                          width: 180,
-                        ),
+                        child: _controller.isCoolSelected
+                            ? Image.asset(
+                                "assets/images/Cool_glow_2.png",
+                                opacity: AnimationController(
+                                    vsync: this, value: 0.5),
+                                width: 180,
+                                key: UniqueKey(),
+                              )
+                            : Image.asset(
+                                "assets/images/Hot_glow_4.png",
+                                width: 180,
+                                key: UniqueKey(),
+                              ),
                       ),
+                    )
+                    // tyre
+                    ,
+                    Positioned(
+                      left: constrains.maxWidth*0.2,
+                      top: constrains.maxHeight*0.22,
+                      child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
+                    ),
+                     Positioned(
+                      right: constrains.maxWidth*0.2,
+                      top: constrains.maxHeight*0.22,
+                      child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
+                    ),
+                     Positioned(
+                      left: constrains.maxWidth*0.2,
+                      bottom: constrains.maxHeight*0.22,
+                      child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
+                    ),
+                     Positioned(
+                      right: constrains.maxWidth*0.2,
+                      bottom: constrains.maxHeight*0.22,
+                      child: SvgPicture.asset("assets/icons/FL_Tyre.svg"),
                     )
                   ],
                 );
