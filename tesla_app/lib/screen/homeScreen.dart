@@ -104,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 } else if (_controller.selectedBottomTab == 2 && index != 2) {
                   _tempAnimationController.reverse(from: 0.4);
                 }
+                _controller.showTyreController(index);
                 _controller.onBottomNavigationTabChanges(index);
               },
               selectedTap: _controller.selectedBottomTab,
@@ -237,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     )
                     // tyre
                     ,
-                    ...tyres(constrains),
+                    if(_controller.isShowTyre)...tyres(constrains),
                   ],
                 );
               }),
