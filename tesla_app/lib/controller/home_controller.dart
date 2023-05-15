@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HomeController extends ChangeNotifier {
- 
   int selectedBottomTab = 0;
   void onBottomNavigationTabChanges(int index) {
-    selectedBottomTab= index;
+    selectedBottomTab = index;
     notifyListeners();
   }
 
@@ -34,16 +33,26 @@ class HomeController extends ChangeNotifier {
     isBottomDoorLock = !isBottomDoorLock;
     notifyListeners();
   }
+
   bool isCoolSelected = true;
-   void updateCoolSelectTap() {
-     isCoolSelected = !isCoolSelected;
-     notifyListeners();
-   }
-   bool isShowTyre = false;
-   void showTyreController(int index) {
-     if(selectedBottomTab != 3 && index ==3){
-      isShowTyre=true;
+  void updateCoolSelectTap() {
+    isCoolSelected = !isCoolSelected;
+    notifyListeners();
+  }
+
+  bool isShowTyre = false;
+  void showTyreController(int index) {
+    if (selectedBottomTab != 3 && index == 3) {
+      Future.delayed(
+        const Duration(milliseconds: 400),
+        () {
+          isShowTyre = true;
+          notifyListeners();
+        },
+      );
+    } else {
+      isShowTyre = false;
       notifyListeners();
-     }
-   }
+    }
+  }
 }

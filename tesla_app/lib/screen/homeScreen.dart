@@ -238,7 +238,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     )
                     // tyre
                     ,
-                    if(_controller.isShowTyre)...tyres(constrains),
+                    if (_controller.isShowTyre) ...tyres(constrains),
+                    GridView.builder(
+                      itemCount: 4,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: defaultPadding,
+                        crossAxisSpacing: defaultPadding,
+                        childAspectRatio: constrains.maxWidth/constrains.maxHeight
+                      ),
+                      itemBuilder: (context, index) => Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white
+                        ),
+                      ),
+                    )
                   ],
                 );
               }),
