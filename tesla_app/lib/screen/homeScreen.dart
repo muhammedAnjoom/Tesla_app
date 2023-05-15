@@ -242,16 +242,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     GridView.builder(
                       itemCount: 4,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: defaultPadding,
-                        crossAxisSpacing: defaultPadding,
-                        childAspectRatio: constrains.maxWidth/constrains.maxHeight
-                      ),
-                      itemBuilder: (context, index) => Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white
-                        ),
-                      ),
+                          crossAxisCount: 2,
+                          mainAxisSpacing: defaultPadding,
+                          crossAxisSpacing: defaultPadding,
+                          childAspectRatio:
+                              constrains.maxWidth / constrains.maxHeight),
+                      itemBuilder: (context, index) => TyrePicase(),
                     )
                   ],
                 );
@@ -259,5 +255,66 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           );
         });
+  }
+}
+
+class TyrePicase extends StatelessWidget {
+  const TyrePicase({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
+          color: Colors.white10,
+          border: Border.all(color: primaryColor, width: 2),
+          borderRadius:
+              const BorderRadius.all(Radius.circular(6))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+                text: "23.6",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                children: const [
+                  TextSpan(
+                      text: "psi",
+                      style: TextStyle(fontSize: 24))
+                ]),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Text(
+            "41\u2103",
+            style: TextStyle(fontSize: 16),
+          ),
+          const Spacer(),
+          Text(
+            "Low".toUpperCase(),
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+          Text(
+            "Pressure".toUpperCase(),
+            style: const TextStyle(fontSize: 20),
+          )
+        ],
+      ),
+    );
   }
 }
