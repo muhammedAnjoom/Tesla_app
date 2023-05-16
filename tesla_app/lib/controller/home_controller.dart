@@ -68,4 +68,13 @@ class HomeController extends ChangeNotifier {
       });
     }
   }
+  int count = 20;
+  void tempCountAdd() {
+    count+=1;
+    notifyListeners();
+  }
+  void tempCountDown() {
+    count-=1;
+    notifyListeners();
+  }
 }

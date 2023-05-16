@@ -54,19 +54,23 @@ class TempDetailis extends StatelessWidget {
             children: [
               IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  _controller.tempCountAdd();
+                },
                 icon: const Icon(
                   Icons.arrow_drop_up,
                   size: 48,
                 ),
               ),
-              const Text(
-                "20" "\u2103",
-                style: TextStyle(fontSize: 86),
+               Text(
+                "${_controller.count.toString()}" "\u2103",
+                style: const TextStyle(fontSize: 86),
               ),
               IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  _controller.tempCountDown();
+                },
                 icon: const Icon(
                   Icons.arrow_drop_down,
                   size: 48,
