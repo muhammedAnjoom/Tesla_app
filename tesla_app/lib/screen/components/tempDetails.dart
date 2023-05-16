@@ -79,7 +79,7 @@ class TempDetailis extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          const Text("CURRENT TEMPERATURE"),
+          const Text("CURRENT TEMPERATUE"),
           const SizedBox(
             height: defaultPadding,
           ),
