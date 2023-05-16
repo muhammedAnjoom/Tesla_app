@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocery_app/constanis.dart';
+import 'package:grocery_app/model/tyrePsi.dart';
 
 import '../bottomNavigationBar.dart';
 import '../controller/home_controller.dart';
@@ -247,7 +248,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           crossAxisSpacing: defaultPadding,
                           childAspectRatio:
                               constrains.maxWidth / constrains.maxHeight),
-                      itemBuilder: (context, index) => TyrePicase(isBottomTwoTyre: index>2,),
+                      itemBuilder: (context, index) => TyrePicase(
+                        isBottomTwoTyre: index > 1,
+                        tyrePsi: demoPsiList[index],
+                      ),
                     )
                   ],
                 );
@@ -260,67 +264,84 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
 class TyrePicase extends StatelessWidget {
   const TyrePicase({
-    super.key, required this.isBottomTwoTyre,
+    super.key,
+    required this.isBottomTwoTyre, required this.tyrePsi,
   });
 
   final bool isBottomTwoTyre;
+  final TyrePsi tyrePsi;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-          color: Colors.white10,
-          border: Border.all(color: primaryColor, width: 2),
-          borderRadius:
-              const BorderRadius.all(Radius.circular(6))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          psiText(context),
-          const SizedBox(
-            height: 16,
-          ),
-          const Text(
-            "41\u2103",
-            style: TextStyle(fontSize: 16),
-          ),
-          const Spacer(),
-          Text(
-            "Low".toUpperCase(),
-            style: Theme.of(context)
-                .textTheme
-                .displaySmall!
-                .copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
+          color: tyrePsi.isLowPressure? redColor.withOpacity(0.1): Colors.white10,
+          border: Border.all(color:tyrePsi.isLowPressure? redColor: primaryColor, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(6))),
+      child: isBottomTwoTyre
+          ? Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                lowPressText(context),
+                const Spacer(),
+                psiText(context, psi: tyrePsi.psi.toString()),
+                const SizedBox(
+                  height: defaultPadding,
                 ),
-          ),
-          Text(
-            "Pressure".toUpperCase(),
-            style: const TextStyle(fontSize: 20),
+                 Text(
+                  "${tyrePsi.temp}\u2103",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
           )
-        ],
-      ),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                psiText(context, psi: tyrePsi.psi.toString()),
+                const SizedBox(
+                  height: 16,
+                ),
+                 Text(
+                  "${tyrePsi.temp}\u2103",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const Spacer(),
+                lowPressText(context),
+              ],
+            ),
     );
   }
 
-  Text psiText(BuildContext context,{required String text}) {
+  Column lowPressText(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "Low".toUpperCase(),
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        Text(
+          "Pressure".toUpperCase(),
+          style: const TextStyle(fontSize: 20),
+        )
+      ],
+    );
+  }
+
+  Text psiText(BuildContext context, {required String psi}) {
     return Text.rich(
-          TextSpan(
-              text: "23.6",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-              children: const [
-                TextSpan(
-                    text: "psi",
-                    style: TextStyle(fontSize: 24))
-              ]),
-        );
+      TextSpan(
+          text: psi,
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+          children: const [
+            TextSpan(text: "psi", style: TextStyle(fontSize: 24))
+          ]),
+    );
   }
 }
