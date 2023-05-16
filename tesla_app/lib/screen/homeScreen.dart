@@ -9,6 +9,7 @@ import 'components/TempButton.dart';
 import 'components/batteryStatus.dart';
 import 'components/door_lock.dart';
 import 'components/tempDetails.dart';
+import 'components/tyrePsiCard.dart';
 import 'components/tyres.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -106,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   _tempAnimationController.reverse(from: 0.4);
                 }
                 _controller.showTyreController(index);
+                _controller.tyreStatusController(index);
                 _controller.onBottomNavigationTabChanges(index);
               },
               selectedTap: _controller.selectedBottomTab,
@@ -240,6 +242,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     // tyre
                     ,
                     if (_controller.isShowTyre) ...tyres(constrains),
+                    if(_controller.isShowTyreStatus) 
                     GridView.builder(
                       itemCount: 4,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -262,86 +265,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 }
 
-class TyrePicase extends StatelessWidget {
-  const TyrePicase({
-    super.key,
-    required this.isBottomTwoTyre, required this.tyrePsi,
-  });
 
-  final bool isBottomTwoTyre;
-  final TyrePsi tyrePsi;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-          color: tyrePsi.isLowPressure? redColor.withOpacity(0.1): Colors.white10,
-          border: Border.all(color:tyrePsi.isLowPressure? redColor: primaryColor, width: 2),
-          borderRadius: const BorderRadius.all(Radius.circular(6))),
-      child: isBottomTwoTyre
-          ? Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                lowPressText(context),
-                const Spacer(),
-                psiText(context, psi: tyrePsi.psi.toString()),
-                const SizedBox(
-                  height: defaultPadding,
-                ),
-                 Text(
-                  "${tyrePsi.temp}\u2103",
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
-          )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                psiText(context, psi: tyrePsi.psi.toString()),
-                const SizedBox(
-                  height: 16,
-                ),
-                 Text(
-                  "${tyrePsi.temp}\u2103",
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const Spacer(),
-                lowPressText(context),
-              ],
-            ),
-    );
-  }
-
-  Column lowPressText(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Low".toUpperCase(),
-          style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        Text(
-          "Pressure".toUpperCase(),
-          style: const TextStyle(fontSize: 20),
-        )
-      ],
-    );
-  }
-
-  Text psiText(BuildContext context, {required String psi}) {
-    return Text.rich(
-      TextSpan(
-          text: psi,
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-          children: const [
-            TextSpan(text: "psi", style: TextStyle(fontSize: 24))
-          ]),
-    );
-  }
-}

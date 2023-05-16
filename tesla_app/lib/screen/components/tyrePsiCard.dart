@@ -1,0 +1,90 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import '../../constanis.dart';
+import '../../model/tyrePsi.dart';
+
+class TyrePicase extends StatelessWidget {
+  const TyrePicase({
+    super.key,
+    required this.isBottomTwoTyre, required this.tyrePsi,
+  });
+
+  final bool isBottomTwoTyre;
+  final TyrePsi tyrePsi;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
+          color: tyrePsi.isLowPressure? redColor.withOpacity(0.1): Colors.white10,
+          border: Border.all(color:tyrePsi.isLowPressure? redColor: primaryColor, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(6))),
+      child: isBottomTwoTyre
+          ? Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               tyrePsi.isLowPressure? lowPressText(context):Container(),
+                const Spacer(),
+                psiText(context, psi: tyrePsi.psi.toString()),
+                const SizedBox(
+                  height: defaultPadding,
+                ),
+                 Text(
+                  "${tyrePsi.temp}\u2103",
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ],
+          )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                psiText(context, psi: tyrePsi.psi.toString()),
+                const SizedBox(
+                  height: 16,
+                ),
+                 Text(
+                  "${tyrePsi.temp}\u2103",
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const Spacer(),
+                tyrePsi.isLowPressure ? lowPressText(context):Container(),
+              ],
+            ),
+    );
+  }
+
+  Column lowPressText(BuildContext context) {
+    return  Column(
+      children: [
+        Text(
+          "Low".toUpperCase(),
+          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                color: Colors.white,
+                fontSize: 40,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        Text(
+          "Pressure".toUpperCase(),
+          style: const TextStyle(fontSize: 20),
+        )
+      ],
+    );
+  }
+
+  Text psiText(BuildContext context, {required String psi}) {
+    return Text.rich(
+      TextSpan(
+          text: psi,
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+          children: const [
+            TextSpan(text: "psi", style: TextStyle(fontSize: 24))
+          ]),
+    );
+  }
+}
