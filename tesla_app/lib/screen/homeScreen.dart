@@ -247,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           crossAxisSpacing: defaultPadding,
                           childAspectRatio:
                               constrains.maxWidth / constrains.maxHeight),
-                      itemBuilder: (context, index) => TyrePicase(),
+                      itemBuilder: (context, index) => TyrePicase(isBottomTwoTyre: index>2,),
                     )
                   ],
                 );
@@ -260,8 +260,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
 class TyrePicase extends StatelessWidget {
   const TyrePicase({
-    super.key,
+    super.key, required this.isBottomTwoTyre,
   });
+
+  final bool isBottomTwoTyre;
 
   @override
   Widget build(BuildContext context) {
@@ -275,22 +277,7 @@ class TyrePicase extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text.rich(
-            TextSpan(
-                text: "23.6",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                children: const [
-                  TextSpan(
-                      text: "psi",
-                      style: TextStyle(fontSize: 24))
-                ]),
-          ),
+          psiText(context),
           const SizedBox(
             height: 16,
           ),
@@ -316,5 +303,24 @@ class TyrePicase extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Text psiText(BuildContext context,{required String text}) {
+    return Text.rich(
+          TextSpan(
+              text: "23.6",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+              children: const [
+                TextSpan(
+                    text: "psi",
+                    style: TextStyle(fontSize: 24))
+              ]),
+        );
   }
 }
