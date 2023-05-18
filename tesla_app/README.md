@@ -13,7 +13,6 @@ use animation controller.
     <tr>
         <td><img src="assets/images/image3.jpg" width="500" /></td>
         <td><img src="assets/images/image4.jpg" width="500" /></td>
-        
     </tr>
 </table>
 
