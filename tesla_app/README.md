@@ -1,16 +1,25 @@
-# grocery_app
+# Tesla_clone
 
-A new Flutter project.
+I am happy to share with you my first animation project in flutter, this tesla clone.
+use animation controller.
 
-## Getting Started
+## ScreenShots
 
-This project is a starting point for a Flutter application.
+<table>
+    <tr>
+        <td><img src="assets/images/image1.jpg" width="400" /></td>
+        <td><img src="assets/images/image2.jpg" width="400" /></td>
+    </tr>
+    <tr>
+        <td><img src="assets/images/image3.jpg" width="400" /></td>
+        <td><img src="assets/images/image4.jpg" width="400" /></td>
+        
+    </tr>
+</table>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Building
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-Install Flutter
+- `flutter pub get`
+- `flutter run`
